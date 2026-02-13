@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Envelope 💌</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #ffe6f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+#envelope-container {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    cursor: pointer;
+}
+
+#envelope {
+    width: 200px;
+    height: 120px;
+    background: red;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    transition: transform 0.8s;
+}
+
+#envelope.open {
+    transform: rotateX(180deg);
+}
+
+.heart {
+    position: absolute;
+    font-size: 16px;
+    color: red;
+    animation: floatUp 3s linear forwards;
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% {opacity:1; transform: translateY(0) rotate(0deg);}
+    100% {opacity:0; transform: translateY(-300px) rotate(360deg);}
+}
+</style>
+</head>
+<body>
+
+<div id="envelope-container">
+    <div id="envelope">💌 Click Me!</div>
+</div>
+
+<script>
+const envelope = document.getElementById('envelope');
+envelope.addEventListener('click', () => {
+    envelope.classList.add('open');
+
+    // Create falling hearts
+    for(let i=0; i<100; i++){
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerText = '❤️ I LOVE YOU';
+        heart.style.left = Math.random()*window.innerWidth + 'px';
+        heart.style.top = window.innerHeight + 'px';
+        heart.style.fontSize = (12 + Math.random()*18) + 'px';
+        heart.style.animationDuration = (2 + Math.random()*3) + 's';
+        document.body.appendChild(heart);
+
+        // Remove heart after animation
+        setTimeout(() => heart.remove(), 4000);
+    }
+
+    // Remove envelope after opening
+    setTimeout(() => envelope.style.display='none', 800);
+});
+</script>
+
+</body>
+</html>
